@@ -204,7 +204,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Service title</th>
+                    <th>Service name</th>
                     <th class="text-right">Count</th>
                     <th class="text-right">Mean</th>
                     <th class="text-right">Min</th>
@@ -235,7 +235,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Cache title</th>
+                    <th>Cache name</th>
                     <th class="text-right">Cache Hits</th>
                     <th class="text-right">Cache Misses</th>
                     <th class="text-right">Cache Gets</th>
@@ -251,7 +251,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="(k, v) in vm.cachesStats" ng-once>
-                    <td>{{v.title}}</td>
+                    <td>{{v.name}}</td>
                     <td class="text-right">{{vm.metrics.gauges[k + '.cache-hits'].value}}</td>
                     <td class="text-right">{{vm.metrics.gauges[k + '.cache-misses'].value}}</td>
                     <td class="text-right">{{vm.metrics.gauges[k + '.cache-gets'].value}}</td>

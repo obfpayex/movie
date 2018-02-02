@@ -60,23 +60,19 @@ import java.util.Date;
     )
     private Date modified;
 
-    @NotNull
     @Size(
         max = 40
     )
     @Column(
-        name = "created_by",
-        nullable = false
+        name = "created_by"
     )
     private String createdBy;
 
-    @NotNull
     @Size(
         max = 40
     )
     @Column(
-        name = "modified_by",
-        nullable = false
+        name = "modified_by"
     )
 
 //    @ManyToMany(mappedBy = "categories")

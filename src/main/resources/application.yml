@@ -7,7 +7,7 @@ server:
 
 spring:
     application:
-        title: obf-movie-server
+        name: obf-movie-server
 
     # ===============================
     # = JPA / HIBERNATE

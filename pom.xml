@@ -8,7 +8,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <title>movie server</title>
+    <name>movie server</name>
     <description>movie server</description>
 
     <parent>
@@ -268,12 +268,12 @@
     <distributionManagement>
         <repository>
             <id>seutv923as.utvnet.net</id>
-            <title>http://seutv923as.utvnet.net/-releases</title>
+            <name>http://seutv923as.utvnet.net/-releases</name>
             <url>http://seutv923as.utvnet.net:8082/artifactory/libs-release-local</url>
         </repository>
         <snapshotRepository>
             <id>seutv923as.utvnet.net-snapshot</id>
-            <title>http://seutv923as.utvnet.net/-snapshots</title>
+            <name>http://seutv923as.utvnet.net/-snapshots</name>
             <url>http://seutv923as.utvnet.net:8082/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>

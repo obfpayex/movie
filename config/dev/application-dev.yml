@@ -11,7 +11,7 @@ spring:
         driverClassName: oracle.jdbc.OracleDriver
         hikari:
             maximum-pool-size: 5
-            pool-title: HikariPool
+            pool-name: HikariPool
 
 application:
     api-retry-count: 1

@@ -6,8 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.crypto.Data;
-import java.io.Serializable;
+import java.util.Date;
+
 
 @Entity
 @SequenceGenerator(
@@ -60,12 +60,12 @@ public class Person extends DomainBase {
     @Column(
         name = "born"
     )
-    private Data born;
+    private Date born;
 
     @Column(
         name = "deceased"
     )
-    private Data deceased;
+    private Date deceased;
 
     public Long getOid() {
         return oid;
@@ -91,19 +91,19 @@ public class Person extends DomainBase {
         this.lastName = lastName;
     }
 
-    public Data getBorn() {
+    public Date getBorn() {
         return born;
     }
 
-    public void setBorn(Data born) {
+    public void setBorn(Date born) {
         this.born = born;
     }
 
-    public Data getDeceased() {
+    public Date getDeceased() {
         return deceased;
     }
 
-    public void setDeceased(Data deceased) {
+    public void setDeceased(Date deceased) {
         this.deceased = deceased;
     }
 }
