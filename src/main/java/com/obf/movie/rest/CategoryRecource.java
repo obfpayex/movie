@@ -77,4 +77,21 @@ public class CategoryRecource {
             log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
         }
     }
+
+    @Timed
+    @PatchMapping(value = "/category")
+    public ResponseEntity<Category> partialUpdate(@RequestBody Category request) throws Exception {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        try {
+            log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
+
+            Category response = categoryService.partialUpdate(request);
+            return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
+        } catch (Exception ex) {
+            log.error("Something happened {}", ex.getMessage(), ex);
+            throw ex;
+        } finally {
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+        }
+    }
 }

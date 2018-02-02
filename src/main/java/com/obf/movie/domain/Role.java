@@ -6,7 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 
     @Entity
@@ -46,6 +45,8 @@ import java.io.Serializable;
             nullable = false
         )
         private String title;
+
+
 
         public Long getOid() {
             return oid;

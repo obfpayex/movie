@@ -77,4 +77,21 @@ public class MovieResource {
             log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
         }
     }
+
+    @Timed
+    @PatchMapping(value = "/movie")
+    public ResponseEntity<Movie> partialUpdate(@RequestBody Movie request) throws Exception {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        try {
+            log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
+
+            Movie response = movieService.partialUpdate(request);
+            return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
+        } catch (Exception ex) {
+            log.error("Something happened {}", ex.getMessage(), ex);
+            throw ex;
+        } finally {
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.obf.movie.service;
 
 import com.obf.movie.domain.Category;
 import com.obf.movie.repository.CategoryRepository;
+import com.obf.movie.util.PartialUpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,35 +26,53 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public Category getOneCategory(Long oid) {
 
-        Category tx = categoryRepository.findOneByOid(oid);
-        if (tx == null)
+        Category cat = categoryRepository.findOneByOid(oid);
+        if (cat == null)
             log.info("Could not find Category by oid: {}", oid);
 
-        return tx;
+        return cat;
     }
 
     @Transactional
-    public Category saveNewCategory(Category Category) {
+    public Category saveNewCategory(Category category) {
         log.info("Saving Category");
-        Category.setModified(Date.from(Instant.now()));
-        Category.setCreated(Date.from(Instant.now()));
-        categoryRepository.save(Category);
-        return Category;
+        category.setModified(Date.from(Instant.now()));
+        category.setCreated(Date.from(Instant.now()));
+        categoryRepository.save(category);
+        return category;
     }
 
     @Transactional
-    public Category updateCategory(Category Category) {
+    public Category updateCategory(Category category) {
 
-        Category mov = categoryRepository.findOneByOid(Category.getOid());
-        if (mov == null) {
-            log.info("Could not find Category by oid: {}", Category.getOid());
+        Category cat = categoryRepository.findOneByOid(category.getOid());
+        if (cat == null) {
+            log.info("Could not find Category by oid: {}", category.getOid());
             return null;
         }
 
-        log.info("Updating Category with oid: {}", mov.getOid());
-        Category.setModified(Date.from(Instant.now()));
-        Category = categoryRepository.save(Category);
+        log.info("Updating Category with oid: {}", cat.getOid());
+        category.setModified(Date.from(Instant.now()));
 
-        return Category;
+        return categoryRepository.save(category);
+    }
+
+
+    @Transactional
+    public Category partialUpdate(Category transaction) throws Exception {
+        if (transaction.getOid() == null)
+            return null;
+
+        Category cat = categoryRepository.findOneByOid(transaction.getOid());
+        if (cat == null) {
+            log.info("Could not find Transaction by oid: {}", transaction.getOid());
+            return null;
+        }
+
+        log.info("Partially updating Transaction with oid: {}", cat.getOid());
+
+        PartialUpdateUtil.copyNonNullProperties(transaction, cat);
+        cat.setModified(Date.from(Instant.now()));
+        return categoryRepository.save(cat);
     }
 }

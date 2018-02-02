@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -67,6 +68,11 @@ public class Person extends DomainBase {
     )
     private Date deceased;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "person_role", joinColumns = @JoinColumn(name = "person_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "role_oid", referencedColumnName = "oid"))
+    private Set<Role> roles;
+
+
     public Long getOid() {
         return oid;
     }
@@ -105,5 +111,13 @@ public class Person extends DomainBase {
 
     public void setDeceased(Date deceased) {
         this.deceased = deceased;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
