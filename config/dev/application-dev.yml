@@ -1,0 +1,28 @@
+# ===============================
+# = Application specific config =
+# ===============================
+
+spring:
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:oracle:thin:@seutv340db.utvnet.net:1521:VASDEV
+        username: moviedba
+        password: moviedba
+        driverClassName: oracle.jdbc.OracleDriver
+        hikari:
+            maximum-pool-size: 5
+            pool-title: HikariPool
+
+application:
+    api-retry-count: 1
+    api-request-log: false
+    async:
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 10000
+
+    foo: bar
+    bar: foo
+    foo-bar:
+      foo: foobar
+      bar: foobar

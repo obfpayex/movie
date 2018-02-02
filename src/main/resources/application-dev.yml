@@ -1,0 +1,43 @@
+# ===============================
+# = Application specific config =
+# ===============================
+
+spring:
+    profiles:
+        active: dev
+        include: swagger
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:mem:test;Mode=Oracle;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS MOVIEDBA
+
+        username:
+        password:
+        driverClassName: org.h2.Driver
+        hikari:
+            maximum-pool-size: 5
+    jpa:
+        show_sql: true
+        hibernate:
+            ddl-auto: create-drop
+
+
+application:
+    api-retry-count: 1
+    api-request-log: false
+    async:
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 10000
+
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+        logs: # Reports Dropwizard metrics in the logs
+            enabled: false
+            report-frequency: 60 # in seconds
+
+
+    foo: bar
+    bar: foo
+    foo-bar:
+      foo: foobar
+      bar: foobar

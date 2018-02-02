@@ -1,0 +1,47 @@
+# ===============================
+# = Application specific config =
+# ===============================
+
+server:
+    port: 1330 #TODO:Change
+
+spring:
+    application:
+        title: obf-movie-server
+
+    # ===============================
+    # = JPA / HIBERNATE
+    # ===============================
+    jpa:
+        # Show or not log for each sql query
+        show-sql: false
+        # Hibernate ddl auto (create, create-drop, update): with "update" the database
+        # schema will be automatically updated accordingly to java entities found in the project
+        hibernate:
+            ddl-auto: none
+            # Allows Hibernate to generate SQL optimized for a particular DBMS
+            naming:
+              physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+              implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+        # Use spring.jpa.properties.* for Hibernate native properties (the prefix is stripped before adding them to the entity manager).
+        properties:
+            hibernate.dialect: org.hibernate.dialect.Oracle12cDialect
+            hibernate.order_inserts: true
+            hibernate.order_updates: true
+            hibernate.jdbc.fetch_size: 100
+            hibernate.jdbc.batch_size: 500
+            hibernate.jdbc.batch_versioned_data: true
+
+            #Disable second level cache
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+info:
+    project:
+        version: #project.version#
+
+management:
+    context-path: /management
+    security:
+      enabled: false

@@ -1,0 +1,36 @@
+# ===============================
+# = Application specific config =
+# ===============================
+
+spring:
+    profiles:
+        active: stage
+        include: swagger
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:oracle:thin:@seutv340db.utvnet.net:1521:EVC
+        username: BoilerplateProdUsername
+        password: BoilerplateProdPassword
+        driverClassName: oracle.jdbc.OracleDriver
+        hikari:
+            maximum-pool-size: 5
+            pool-title: HikariPool
+
+application:
+    async:
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 10000
+
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+        logs: # Reports Dropwizard metrics in the logs
+            enabled: false
+            report-frequency: 60 # in seconds
+
+
+    foo: bar
+    bar: foo
+    foo-bar:
+      foo: foobar
+      bar: foobar

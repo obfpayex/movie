@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="app" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title ng-bind="title">Welcome</title>
+    <meta title="description" content="">
+    <meta title="google" value="notranslate">
+    <meta title="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+</head>
+<body ng-controller="AppController">
+
+<div ng-include="'app/navbar/navbar.html'"></div>
+
+<div class="container">
+    <h3>VAS Boileplate Server</h3>
+
+    <div class="well" ui-view="content">
+        <!-- Angular views -->
+    </div>
+
+    <div class="footer" ng-cloak>
+        <p data-translate="footer">VAS Boileplate Server</p>
+    </div>
+</div>
+
+<script src="libs/angular.1.5.8.min.js"></script>
+<script src="libs/angular-resource.1.5.8.min.js"></script>
+<script src="libs/angular-ui-router.0.3.1.min.js"></script>
+<script src="libs/angular-sanitize.1.5.8.min.js"></script>
+<script src="libs/ui-bootstrap-tpls.1.3.3.min.js"></script>
+
+<script src="app/app.module.js"></script>
+<script src="app/app.controller.js"></script>
+<script src="app/app.state.js"></script>
+<script src="app/misc/state.handler.js"></script>
+<script src="app/metrics/metrics.service.js"></script>
+<script src="app/metrics/metrics.controller.js"></script>
+<script src="app/metrics/metrics.modal.controller.js"></script>
+
+</body>
+</html>
