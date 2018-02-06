@@ -68,9 +68,12 @@ public class Person extends DomainBase {
     )
     private Date deceased;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "person_role", joinColumns = @JoinColumn(name = "person_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "role_oid", referencedColumnName = "oid"))
-    private Set<Role> roles;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.person", cascade=CascadeType.ALL)
+//    private Set<MoviePersonRole> moviePersonRole;
+
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "person_role", joinColumns = @JoinColumn(name = "person_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "role_oid", referencedColumnName = "oid"))
+//    private Set<Role> roles;
 
 
     public Long getOid() {
@@ -113,11 +116,19 @@ public class Person extends DomainBase {
         this.deceased = deceased;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+//    public Set<MoviePersonRole> getMoviePersonRole() {
+//        return moviePersonRole;
+//    }
+//
+//    public void setMoviePersonRole(Set<MoviePersonRole> moviePersonRole) {
+//        this.moviePersonRole = moviePersonRole;
+//    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+    //    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 }

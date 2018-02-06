@@ -1,9 +1,10 @@
 package com.obf.movie.service;
 
-import com.obf.movie.domain.Category;
-import com.obf.movie.domain.Movie;
+import com.obf.movie.domain.*;
 import com.obf.movie.repository.CategoryRepository;
 import com.obf.movie.repository.MovieRepository;
+import com.obf.movie.repository.PersonRepository;
+import com.obf.movie.repository.RoleRepository;
 import com.obf.movie.util.PartialUpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +21,22 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final CategoryRepository categoryRepository;
+    private final RoleRepository roleRepository;
+    private final PersonRepository personRepository;
 
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
 
-    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository) {
+//    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository) {
+//        this.movieRepository = movieRepository;
+//        this.categoryRepository = categoryRepository;
+//    }
+
+    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository, RoleRepository roleRepository, PersonRepository personRepository) {
         this.movieRepository = movieRepository;
         this.categoryRepository = categoryRepository;
+        this.roleRepository = roleRepository;
+        this.personRepository = personRepository;
     }
-
 
     @Transactional(readOnly = true)
     public Movie getOneMovie(Long oid) {
@@ -53,6 +62,19 @@ public class MovieService {
                 movie.getCategories().add(cat);
             }
         }
+
+
+        Set<MoviePersonRole> mpr = movie.getMoviePersonRole().stream().collect(Collectors.toSet());
+        movie.getMoviePersonRole().clear();
+        for (MoviePersonRole item : mpr){
+            Role r = roleRepository.findOneByOid(item.getPk().getRole().getOid());
+            Person p = personRepository.findOneByOid(item.getPk().getPerson().getOid());
+            item.getPk().setPerson(p);
+            item.getPk().setRole(r);
+
+            movie.getMoviePersonRole().add(item);
+        }
+
         movie.setModified(Date.from(Instant.now()));
         movie.setCreated(Date.from(Instant.now()));
         movieRepository.save(movie);

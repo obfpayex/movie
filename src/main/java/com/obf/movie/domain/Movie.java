@@ -3,6 +3,7 @@ package com.obf.movie.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -62,6 +63,11 @@ public class Movie implements Serializable {
     //@ManyToMany(fetch = FetchType.EAGER)
     //@JoinColumn(name = "category_oid")
     private Set<Category> categories;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.movie", cascade=CascadeType.ALL)
+    private  Set<MoviePersonRole> moviePersonRole;
+
 
     @Column(
         name = "created",
@@ -160,5 +166,13 @@ public class Movie implements Serializable {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<MoviePersonRole> getMoviePersonRole() {
+        return moviePersonRole;
+    }
+
+    public void setMoviePersonRole(Set<MoviePersonRole> moviePersonRole) {
+        this.moviePersonRole = moviePersonRole;
     }
 }

@@ -47,16 +47,16 @@ public class PersonService {
     public Person saveNewPerson(Person person) {
         log.info("Saving Person");
 
-        Set<Role> roles = person.getRoles().stream().collect(Collectors.toSet());
-        person.getRoles().clear();
-        for (Role rol : roles){
-            Role item = roleRepository.findOneByOid(rol.getOid());
-            if (item!= null){
-                person.getRoles().add(item);
-            } else {
-                person.getRoles().add(rol);
-            }
-        }
+//        Set<Role> roles = person.getRoles().stream().collect(Collectors.toSet());
+//        person.getRoles().clear();
+//        for (Role rol : roles){
+//            Role item = roleRepository.findOneByOid(rol.getOid());
+//            if (item!= null){
+//                person.getRoles().add(item);
+//            } else {
+//                person.getRoles().add(rol);
+//            }
+//        }
         person.setModified(Date.from(Instant.now()));
         person.setCreated(Date.from(Instant.now()));
         personRepository.save(person);
