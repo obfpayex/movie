@@ -1,13 +1,13 @@
 package com.obf.movie.domain;
 
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Set;
-
 
 @Entity
 @SequenceGenerator(
@@ -18,12 +18,13 @@ import java.util.Set;
 )
 @Table(
     name = "roles",
-    schema = "MOVIEDBA" // kan droppes
+    schema = "MOVIEDBA"
 )
 @Cache(
     usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE
 )
-public class Role extends DomainBase {
+
+public class Role implements Serializable {
 
     @NotNull
     @Id
@@ -37,18 +38,14 @@ public class Role extends DomainBase {
     )
     private Long oid;
 
-    @NotNull
-    @Size(
-        max = 150
-    )
-    @Column(
-        name = "title",
-        nullable = false
-    )
-    private String title;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.role", cascade = CascadeType.ALL)
-//    private Set<MoviePersonRole> moviePersonRole;
+
+    @OneToOne
+    private Person person;
+
+    @ManyToOne
+    private RoleType roleType;
+
 
     public Long getOid() {
         return oid;
@@ -58,19 +55,19 @@ public class Role extends DomainBase {
         this.oid = oid;
     }
 
-    public String getTitle() {
-        return title;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-//    public Set<MoviePersonRole> getMoviePersonRole() {
-//        return moviePersonRole;
-//    }
-//
-//    public void setMoviePersonRole(Set<MoviePersonRole> moviePersonRole) {
-//        this.moviePersonRole = moviePersonRole;
-//    }
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
 }

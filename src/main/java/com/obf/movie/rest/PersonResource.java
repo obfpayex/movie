@@ -46,7 +46,7 @@ public class PersonResource {
 
     @Timed
     @PostMapping(value = "/person")
-    public ResponseEntity<Person> addMovie(@RequestBody Person request) {
+    public ResponseEntity<Person> addPerson(@RequestBody Person request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("add() invoked for person with oid: {} ", request.getOid());
@@ -63,7 +63,7 @@ public class PersonResource {
 
     @Timed
     @PutMapping(value = "/person")
-    public ResponseEntity<Person> update(@RequestBody @Valid Person request) {
+    public ResponseEntity<Person> updatePerson(@RequestBody @Valid Person request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("update() invoked for person with oid: {} ", request.getOid());
@@ -80,7 +80,7 @@ public class PersonResource {
 
     @Timed
     @PatchMapping(value = "/person")
-    public ResponseEntity<Person> partialUpdate(@RequestBody Person request) throws Exception {
+    public ResponseEntity<Person> partialUpdatePerson(@RequestBody Person request) throws Exception {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("partialUpdate() invoked for Person with oid: {} ", request.getOid());

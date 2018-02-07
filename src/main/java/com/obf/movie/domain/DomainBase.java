@@ -1,5 +1,7 @@
 package com.obf.movie.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,12 +14,14 @@ public class DomainBase implements Serializable {
         name = "created",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date created;
 
     @Column(
         name = "modified",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date modified;
 
     @NotNull

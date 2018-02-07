@@ -8,30 +8,29 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 
 @Entity
 @SequenceGenerator(
-    name = "personsSeq",
-    sequenceName = "persons_seq",
+    name = "roletypesSeq",
+    sequenceName = "roletypes_seq",
     allocationSize = 1,
     schema = "MOVIEDBA"
 )
 @Table(
-    name = "persons",
+    name = "roletypes",
     schema = "MOVIEDBA" // kan droppes
 )
 @Cache(
     usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE
 )
-public class Person {
+public class RoleType {
 
     @NotNull
     @Id
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "personsSeq"
+        generator = "roletypesSeq"
     )
     @Column(
         name = "oid",
@@ -39,37 +38,15 @@ public class Person {
     )
     private Long oid;
 
-    @Size(
-        max = 50
-    )
-    @Column(
-        name = "first_name",
-        nullable = false
-    )
-    private String firstName;
-
     @NotNull
     @Size(
         max = 150
     )
     @Column(
-        name = "last_name",
+        name = "title",
         nullable = false
     )
-    private String lastName;
-
-
-    @Column(
-        name = "born"
-    )
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date born;
-
-    @Column(
-        name = "deceased"
-    )
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date deceased;
+    private String title;
 
     @Column(
         name = "created",
@@ -105,10 +82,6 @@ public class Person {
     )
     private String modifiedBy;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Role role;
-
-
     public Long getOid() {
         return oid;
     }
@@ -117,36 +90,12 @@ public class Person {
         this.oid = oid;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getBorn() {
-        return born;
-    }
-
-    public void setBorn(Date born) {
-        this.born = born;
-    }
-
-    public Date getDeceased() {
-        return deceased;
-    }
-
-    public void setDeceased(Date deceased) {
-        this.deceased = deceased;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getCreated() {
@@ -179,13 +128,5 @@ public class Person {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

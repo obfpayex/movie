@@ -1,13 +1,8 @@
 package com.obf.movie.service;
 
-import com.obf.movie.domain.Category;
-import com.obf.movie.domain.Movie;
 import com.obf.movie.domain.Person;
-import com.obf.movie.domain.Role;
-import com.obf.movie.repository.CategoryRepository;
-import com.obf.movie.repository.MovieRepository;
 import com.obf.movie.repository.PersonRepository;
-import com.obf.movie.repository.RoleRepository;
+import com.obf.movie.repository.RoleTypeRepository;
 import com.obf.movie.util.PartialUpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,18 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final RoleRepository roleRepository;
+    private final RoleTypeRepository roleRepository;
 
     private static final Logger log = LoggerFactory.getLogger(PersonService.class);
 
-    public PersonService(PersonRepository personRepository, RoleRepository roleRepository) {
+    public PersonService(PersonRepository personRepository, RoleTypeRepository roleRepository) {
         this.personRepository = personRepository;
         this.roleRepository = roleRepository;
     }
@@ -47,10 +40,10 @@ public class PersonService {
     public Person saveNewPerson(Person person) {
         log.info("Saving Person");
 
-//        Set<Role> roles = person.getRoles().stream().collect(Collectors.toSet());
+//        Set<RoleType> roles = person.getRoles().stream().collect(Collectors.toSet());
 //        person.getRoles().clear();
-//        for (Role rol : roles){
-//            Role item = roleRepository.findOneByOid(rol.getOid());
+//        for (RoleType rol : roles){
+//            RoleType item = roleRepository.findOneByOid(rol.getOid());
 //            if (item!= null){
 //                person.getRoles().add(item);
 //            } else {

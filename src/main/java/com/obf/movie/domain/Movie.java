@@ -1,16 +1,16 @@
 package com.obf.movie.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @SequenceGenerator(
@@ -58,27 +58,18 @@ public class Movie implements Serializable {
     )
     private String norwegianTitle;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "movie_category", joinColumns = @JoinColumn(name = "movie_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "category_oid", referencedColumnName = "oid"))
-    //@ManyToMany(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "category_oid")
-    private Set<Category> categories;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.movie", cascade=CascadeType.ALL)
-    private  Set<MoviePersonRole> moviePersonRole;
-
-
     @Column(
         name = "created",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date created;
 
     @Column(
         name = "modified",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date modified;
 
     @NotNull
@@ -102,6 +93,12 @@ public class Movie implements Serializable {
     private String modifiedBy;
 
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "movie_category", joinColumns = @JoinColumn(name = "movie_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "category_oid", referencedColumnName = "oid"))
+    private List<Category> categories;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Role> roles;
 
 
     public Long getOid() {
@@ -160,19 +157,31 @@ public class Movie implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
-    public Set<MoviePersonRole> getMoviePersonRole() {
-        return moviePersonRole;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setMoviePersonRole(Set<MoviePersonRole> moviePersonRole) {
-        this.moviePersonRole = moviePersonRole;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Movie clone(){
+        Movie mov = new Movie();
+        mov.setCreated(this.getCreated());
+        mov.setModified(this.getModified());
+        mov.setCreatedBy(this.getCreatedBy());
+        mov.setModifiedBy(this.getModifiedBy());
+        mov.setCategories(this.getCategories());
+        mov.setNorwegianTitle(this.getNorwegianTitle());
+        mov.setOriginalTitle(this.getOriginalTitle());
+        return mov;
     }
 }

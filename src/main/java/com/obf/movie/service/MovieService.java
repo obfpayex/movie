@@ -1,10 +1,7 @@
 package com.obf.movie.service;
 
 import com.obf.movie.domain.*;
-import com.obf.movie.repository.CategoryRepository;
-import com.obf.movie.repository.MovieRepository;
-import com.obf.movie.repository.PersonRepository;
-import com.obf.movie.repository.RoleRepository;
+import com.obf.movie.repository.*;
 import com.obf.movie.util.PartialUpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,21 +18,19 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final CategoryRepository categoryRepository;
-    private final RoleRepository roleRepository;
     private final PersonRepository personRepository;
+    private final RoleTypeRepository roleTypeRepository;
+
 
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
 
-//    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository) {
-//        this.movieRepository = movieRepository;
-//        this.categoryRepository = categoryRepository;
-//    }
 
-    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository, RoleRepository roleRepository, PersonRepository personRepository) {
+
+    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository, PersonRepository personRepository, RoleTypeRepository roleTypeRepository) {
         this.movieRepository = movieRepository;
         this.categoryRepository = categoryRepository;
-        this.roleRepository = roleRepository;
         this.personRepository = personRepository;
+        this.roleTypeRepository = roleTypeRepository;
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +47,7 @@ public class MovieService {
     public Movie saveNewMovie(Movie movie) {
         log.info("Saving movie");
 
-        Set<Category> categories = movie.getCategories().stream().collect(Collectors.toSet());
+        List<Category> categories = movie.getCategories().stream().collect(Collectors.toList());
         movie.getCategories().clear();
         for (Category cat : categories){
             Category item = categoryRepository.findOneByOid(cat.getOid());
@@ -63,21 +58,23 @@ public class MovieService {
             }
         }
 
+        List<Role> roles = movie.getRoles().stream().collect(Collectors.toList());
+        movie.getRoles().clear();
+        for(Role item: roles){
+            Person person = personRepository.findOneByOid(item.getPerson().getOid());
+            if (person!= null){
+                item.setPerson(person);
+            }
 
-        Set<MoviePersonRole> mpr = movie.getMoviePersonRole().stream().collect(Collectors.toSet());
-        movie.getMoviePersonRole().clear();
-        for (MoviePersonRole item : mpr){
-            Role r = roleRepository.findOneByOid(item.getPk().getRole().getOid());
-            Person p = personRepository.findOneByOid(item.getPk().getPerson().getOid());
-            item.getPk().setPerson(p);
-            item.getPk().setRole(r);
-
-            movie.getMoviePersonRole().add(item);
+            RoleType roleType = roleTypeRepository.findOneByOid(item.getRoleType().getOid());
+            if (roleType != null){
+                item.setRoleType(roleType);
+            }
+            movie.getRoles().add(item);
         }
 
-        movie.setModified(Date.from(Instant.now()));
-        movie.setCreated(Date.from(Instant.now()));
         movieRepository.save(movie);
+
         return movie;
     }
 

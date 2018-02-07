@@ -1,5 +1,6 @@
 package com.obf.movie.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -52,12 +53,14 @@ import java.util.Date;
         name = "created",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date created;
 
     @Column(
         name = "modified",
         nullable = false
     )
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date modified;
 
     @Size(

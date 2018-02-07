@@ -2,9 +2,8 @@ package com.obf.movie.rest;
 
 
 import com.codahale.metrics.annotation.Timed;
-import com.obf.movie.domain.Category;
-import com.obf.movie.domain.Role;
-import com.obf.movie.service.RoleService;
+import com.obf.movie.domain.RoleType;
+import com.obf.movie.service.RoleTypeService;
 import com.obf.movie.util.ResponseUtil;
 import com.payex.vas.common.vasutil.utils.Stopwatch;
 import org.slf4j.Logger;
@@ -17,25 +16,25 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/obf-movie-server/api")
-public class RoleRecource {
+public class RoleTypeRecource {
 
     private static final Logger log = LoggerFactory.getLogger(MovieResource.class);
 
-    private final RoleService roleService;
+    private final RoleTypeService roleService;
 
-    public RoleRecource(RoleService roleService) {
+    public RoleTypeRecource(RoleTypeService roleService) {
         this.roleService = roleService;
     }
 
 
     @Timed
-    @GetMapping(value = "/role/{oId}")
-    public ResponseEntity<Role> getOneRole(@PathVariable("oId") Long oId) {
+    @GetMapping(value = "/roletype/{oId}")
+    public ResponseEntity<RoleType> getOneRoleType(@PathVariable("oId") Long oId) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("get invoked: {} ", oId);
 
-            Role response = roleService.getOneRole(oId);
+            RoleType response = roleService.getOneRoleType(oId);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -46,13 +45,13 @@ public class RoleRecource {
     }
 
     @Timed
-    @PostMapping(value = "/role")
-    public ResponseEntity<Role> addRole(@RequestBody Role request) {
+    @PostMapping(value = "/roletype")
+    public ResponseEntity<RoleType> addRoleType(@RequestBody RoleType request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("add() invoked for category with oid: {} ", request.getOid());
 
-            Role response = roleService.saveNewRole(request);
+            RoleType response = roleService.saveNewRoleType(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -63,13 +62,13 @@ public class RoleRecource {
     }
 
     @Timed
-    @PutMapping(value = "/role")
-    public ResponseEntity<Role> updateRole(@RequestBody @Valid Role request) {
+    @PutMapping(value = "/roletype")
+    public ResponseEntity<RoleType> updateRoleType(@RequestBody @Valid RoleType request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("update() invoked for category with oid: {} ", request.getOid());
 
-            Role response = roleService.updateRole(request);
+            RoleType response = roleService.updateRoleType(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -80,13 +79,13 @@ public class RoleRecource {
     }
 
     @Timed
-    @PatchMapping(value = "/role")
-    public ResponseEntity<Role> partialUpdate(@RequestBody Role request) throws Exception {
+    @PatchMapping(value = "/roletype")
+    public ResponseEntity<RoleType> partialUpdate(@RequestBody RoleType request) throws Exception {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
 
-            Role response = roleService.partialUpdate(request);
+            RoleType response = roleService.partialUpdate(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
