@@ -9,17 +9,14 @@ import com.obf.movie.repository.CategoryRepository;
 import com.obf.movie.repository.MovieRepository;
 import com.obf.movie.repository.PersonRepository;
 import com.obf.movie.repository.RoleTypeRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class InitTestDataService {
@@ -27,8 +24,6 @@ public class InitTestDataService {
     private final CategoryRepository categoryRepository;
     private final RoleTypeRepository roleRepository;
     private final PersonRepository personRepository;
-
-    private static final Logger log = LoggerFactory.getLogger(InitTestDataService.class);
 
 
     public InitTestDataService(MovieRepository movieRepository, CategoryRepository categoryRepository, RoleTypeRepository roleRepository, PersonRepository personRepository) {
@@ -58,7 +53,7 @@ public class InitTestDataService {
 
 
             List<Category> categories = new ArrayList<>();
-            categories.add(categoryRepository.findOneByOid(1l));
+            categories.add(categoryRepository.findOneByOid(1L));
             mov.setCategories(categories);
             mov.setNorwegianTitle("Meg");
             mov.setOriginalTitle("Me");

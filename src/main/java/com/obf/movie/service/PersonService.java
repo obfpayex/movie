@@ -2,7 +2,6 @@ package com.obf.movie.service;
 
 import com.obf.movie.domain.Person;
 import com.obf.movie.repository.PersonRepository;
-import com.obf.movie.repository.RoleTypeRepository;
 import com.obf.movie.util.PartialUpdateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +76,7 @@ public class PersonService {
         return per;
     }
 
-    public Person getPersonFromDB(Person item) {
+    Person getPersonFromDB(Person item) {
         Person person = personRepository.findOneByOid(item.getOid());
         return person!= null? person : item;
     }

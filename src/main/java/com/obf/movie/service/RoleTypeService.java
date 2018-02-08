@@ -74,7 +74,7 @@ public class RoleTypeService {
         return roleTypeRepository.save(rol);
     }
 
-    public RoleType getRoleTypeFromDB(RoleType item) {
+    RoleType getRoleTypeFromDB(RoleType item) {
         RoleType roleType = roleTypeRepository.findOneByOid(item.getOid());
         return roleType != null ? roleType:item;
     }

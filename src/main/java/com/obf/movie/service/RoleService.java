@@ -2,8 +2,6 @@ package com.obf.movie.service;
 
 
 import com.obf.movie.domain.Role;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -13,14 +11,12 @@ public class RoleService {
     private final PersonService personService;
     private final RoleTypeService roleTypeService;
 
-    private static final Logger log = LoggerFactory.getLogger(RoleService.class);
-
     public RoleService(PersonService personService, RoleTypeService roleTypeService) {
         this.personService = personService;
         this.roleTypeService = roleTypeService;
     }
 
-    public List<Role> setRoleWithDataFromDB(List<Role> roles) {
+    List<Role> setRoleWithDataFromDB(List<Role> roles) {
         for(Role item: roles){
             getPersonFromDB(item);
             getRoleTypeFromDB(item);

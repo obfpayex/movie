@@ -172,16 +172,4 @@ public class Movie implements Serializable {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-    public Movie clone(){
-        Movie mov = new Movie();
-        mov.setCreated(this.getCreated());
-        mov.setModified(this.getModified());
-        mov.setCreatedBy(this.getCreatedBy());
-        mov.setModifiedBy(this.getModifiedBy());
-        mov.setCategories(this.getCategories());
-        mov.setNorwegianTitle(this.getNorwegianTitle());
-        mov.setOriginalTitle(this.getOriginalTitle());
-        return mov;
-    }
 }

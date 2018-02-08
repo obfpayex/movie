@@ -79,7 +79,7 @@ public class CategoryService {
     }
 
 
-    public List<Category> getCategoriesFromDB(List<Category> categories){
+    List<Category> getCategoriesFromDB(List<Category> categories){
 
         List<Category> cats = new ArrayList<>();
 
