@@ -15,18 +15,18 @@ import java.time.Instant;
 @Service
 public class RoleTypeService {
 
-    private final RoleTypeRepository roleRepository;
+    private final RoleTypeRepository roleTypeRepository;
 
     private static final Logger log = LoggerFactory.getLogger(RoleTypeService.class);
 
     public RoleTypeService(RoleTypeRepository roleRepository) {
-        this.roleRepository = roleRepository;
+        this.roleTypeRepository = roleRepository;
     }
 
     @Transactional(readOnly = true)
     public RoleType getOneRoleType(Long oid) {
 
-        RoleType rol = roleRepository.findOneByOid(oid);
+        RoleType rol = roleTypeRepository.findOneByOid(oid);
         if (rol == null)
             log.info("Could not find RoleType by oid: {}", oid);
 
@@ -38,14 +38,14 @@ public class RoleTypeService {
         log.info("Saving RoleType");
         roleType.setModified(Date.from(Instant.now()));
         roleType.setCreated(Date.from(Instant.now()));
-        roleRepository.save(roleType);
+        roleTypeRepository.save(roleType);
         return roleType;
     }
 
     @Transactional
     public RoleType updateRoleType(RoleType roleType) {
 
-        RoleType rol = roleRepository.findOneByOid(roleType.getOid());
+        RoleType rol = roleTypeRepository.findOneByOid(roleType.getOid());
         if (rol == null) {
             log.info("Could not find RoleType by oid: {}", roleType.getOid());
             return null;
@@ -53,7 +53,7 @@ public class RoleTypeService {
 
         log.info("Updating RoleType with oid: {}", rol.getOid());
         roleType.setModified(Date.from(Instant.now()));
-        return roleRepository.save(roleType);
+        return roleTypeRepository.save(roleType);
     }
 
     @Transactional
@@ -61,7 +61,7 @@ public class RoleTypeService {
         if (transaction.getOid() == null)
             return null;
 
-        RoleType rol = roleRepository.findOneByOid(transaction.getOid());
+        RoleType rol = roleTypeRepository.findOneByOid(transaction.getOid());
         if (rol == null) {
             log.info("Could not find role by oid: {}", transaction.getOid());
             return null;
@@ -71,6 +71,11 @@ public class RoleTypeService {
 
         PartialUpdateUtil.copyNonNullProperties(transaction, rol);
         rol.setModified(Date.from(Instant.now()));
-        return roleRepository.save(rol);
+        return roleTypeRepository.save(rol);
+    }
+
+    public RoleType getRoleTypeFromDB(RoleType item) {
+        RoleType roleType = roleTypeRepository.findOneByOid(item.getOid());
+        return roleType != null ? roleType:item;
     }
 }

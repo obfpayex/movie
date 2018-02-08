@@ -3,15 +3,11 @@ package com.obf.movie.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.obf.movie.service.InitTestDataService;
-import com.obf.movie.util.ResponseUtil;
 import com.payex.vas.common.vasutil.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/obf-movie-server/api")

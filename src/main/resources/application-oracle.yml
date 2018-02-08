@@ -1,7 +1,7 @@
 # ===============================
 # = Application specific config =
 # ===============================
-
+# in vm options in run : -Dspring.profiles.active=oracle
 spring:
     profiles:
         active: dev
@@ -18,7 +18,7 @@ spring:
     jpa:
         show_sql: true
         hibernate:
-            ddl-auto: create-drop
+            ddl-auto: none
 
 
 application:

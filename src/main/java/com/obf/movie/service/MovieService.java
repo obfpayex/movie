@@ -10,27 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final CategoryRepository categoryRepository;
-    private final PersonRepository personRepository;
-    private final RoleTypeRepository roleTypeRepository;
+    private final CategoryService categoryService;
+    private final RoleService roleService;
 
 
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
 
-
-
-    public MovieService(MovieRepository movieRepository, CategoryRepository categoryRepository, PersonRepository personRepository, RoleTypeRepository roleTypeRepository) {
+    public MovieService(MovieRepository movieRepository, CategoryService categoryService, RoleService roleService) {
         this.movieRepository = movieRepository;
-        this.categoryRepository = categoryRepository;
-        this.personRepository = personRepository;
-        this.roleTypeRepository = roleTypeRepository;
+        this.categoryService = categoryService;
+        this.roleService = roleService;
     }
 
     @Transactional(readOnly = true)
@@ -43,39 +39,59 @@ public class MovieService {
         return mov;
     }
 
+    @Transactional(readOnly = true)
+    public List<Movie> getAllMovies() {
+
+        List<Movie> movies = movieRepository.findAll();
+        if (movies == null)
+            log.info("Could not find any Movies");
+
+        return movies;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Movie> getMoviesByOriginalTitle(String orgTitle) {
+
+        List<Movie> movies = movieRepository.findByOriginalTitle(orgTitle);
+        if (movies == null)
+            log.info("Could not find any Movies");
+
+        return movies;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Movie> searchMoviesByOriginalTitle(String orgTitle) {
+
+        List<Movie> movies = movieRepository.findByOriginalTitleLike(orgTitle);
+        if (movies == null)
+            log.info("Could not find any Movies");
+
+        return movies;
+    }
+
     @Transactional
     public Movie saveNewMovie(Movie movie) {
         log.info("Saving movie");
 
-        List<Category> categories = movie.getCategories().stream().collect(Collectors.toList());
-        movie.getCategories().clear();
-        for (Category cat : categories){
-            Category item = categoryRepository.findOneByOid(cat.getOid());
-            if (item!= null){
-                movie.getCategories().add(item);
-            } else {
-                movie.getCategories().add(cat);
-            }
-        }
-
-        List<Role> roles = movie.getRoles().stream().collect(Collectors.toList());
-        movie.getRoles().clear();
-        for(Role item: roles){
-            Person person = personRepository.findOneByOid(item.getPerson().getOid());
-            if (person!= null){
-                item.setPerson(person);
-            }
-
-            RoleType roleType = roleTypeRepository.findOneByOid(item.getRoleType().getOid());
-            if (roleType != null){
-                item.setRoleType(roleType);
-            }
-            movie.getRoles().add(item);
-        }
-
+        getCategoryFromDB(movie);
+        setRoleWithDdataFromDB(movie);
         movieRepository.save(movie);
 
         return movie;
+    }
+
+    private void setRoleWithDdataFromDB(Movie movie) {
+        List<Role> roles = roleService.setRoleWithDataFromDB(new ArrayList<>(movie.getRoles()));
+        movie.getRoles().clear();
+        movie.setRoles(roles);
+    }
+
+    private void getCategoryFromDB(Movie movie) {
+        List<Category> categories = categoryService.getCategoriesFromDB(new ArrayList<>(movie.getCategories()));
+        movie.getCategories().clear();
+        movie.setCategories(categories);
     }
 
     @Transactional

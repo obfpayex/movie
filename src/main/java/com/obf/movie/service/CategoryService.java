@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -74,5 +76,21 @@ public class CategoryService {
         PartialUpdateUtil.copyNonNullProperties(transaction, cat);
         cat.setModified(Date.from(Instant.now()));
         return categoryRepository.save(cat);
+    }
+
+
+    public List<Category> getCategoriesFromDB(List<Category> categories){
+
+        List<Category> cats = new ArrayList<>();
+
+        for (Category cat : categories){
+            Category item = categoryRepository.findOneByOid(cat.getOid());
+            if (item!= null){
+                cats.add(item);
+            }
+        }
+
+        return cats.size() > 0 ? cats : null;
+
     }
 }

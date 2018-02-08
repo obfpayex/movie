@@ -16,13 +16,11 @@ import java.time.Instant;
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final RoleTypeRepository roleRepository;
 
     private static final Logger log = LoggerFactory.getLogger(PersonService.class);
 
-    public PersonService(PersonRepository personRepository, RoleTypeRepository roleRepository) {
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
-        this.roleRepository = roleRepository;
     }
 
 
@@ -40,16 +38,6 @@ public class PersonService {
     public Person saveNewPerson(Person person) {
         log.info("Saving Person");
 
-//        Set<RoleType> roles = person.getRoles().stream().collect(Collectors.toSet());
-//        person.getRoles().clear();
-//        for (RoleType rol : roles){
-//            RoleType item = roleRepository.findOneByOid(rol.getOid());
-//            if (item!= null){
-//                person.getRoles().add(item);
-//            } else {
-//                person.getRoles().add(rol);
-//            }
-//        }
         person.setModified(Date.from(Instant.now()));
         person.setCreated(Date.from(Instant.now()));
         personRepository.save(person);
@@ -89,4 +77,8 @@ public class PersonService {
         return per;
     }
 
+    public Person getPersonFromDB(Person item) {
+        Person person = personRepository.findOneByOid(item.getOid());
+        return person!= null? person : item;
+    }
 }

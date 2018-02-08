@@ -78,9 +78,6 @@ import java.util.Date;
         name = "modified_by"
     )
 
-//    @ManyToMany(mappedBy = "categories")
-//    private Set<Movie> movies;
-
     private String modifiedBy;
 
 
@@ -132,11 +129,4 @@ import java.util.Date;
         this.modifiedBy = modifiedBy;
     }
 
-//    public Set<Movie> getMovies() {
-//        return movies;
-//    }
-//
-//    public void setMovies(Set<Movie> movies) {
-//        this.movies = movies;
-//    }
 }
