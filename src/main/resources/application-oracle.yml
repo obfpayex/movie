@@ -18,7 +18,8 @@ spring:
     jpa:
         show_sql: true
         hibernate:
-            ddl-auto: none
+            # none, update
+            ddl-auto: update
 
 
 application:

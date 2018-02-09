@@ -78,6 +78,15 @@ public class CategoryService {
         return categoryRepository.save(cat);
     }
 
+    @Transactional(readOnly = true)
+    public List<Category> getAllCategories() {
+
+        List<Category> categories = categoryRepository.findAll();
+        if (categories == null)
+            log.info("Could not find any categories");
+
+        return categories;
+    }
 
     List<Category> getCategoriesFromDB(List<Category> categories){
 

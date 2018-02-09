@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -92,6 +93,24 @@ public class CategoryRecource {
             throw ex;
         } finally {
             log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+        }
+    }
+
+    @Timed
+    @GetMapping(value = "/category/getallcategory")
+    public List<Category> getAllCategories() {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        try {
+            //log.info("get invoked: {} ", originalTitle);
+
+            List<Category> response = categoryService.getAllCategories();
+
+            return response;
+        } catch (Exception ex) {
+            log.error("Something happened {}", ex.getMessage(), ex);
+            throw ex;
+        } finally {
+            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
         }
     }
 }

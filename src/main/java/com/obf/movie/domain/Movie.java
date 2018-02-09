@@ -92,6 +92,16 @@ public class Movie implements Serializable {
     )
     private String modifiedBy;
 
+    @Column(
+       name = "running_time"
+    )
+    private int runningTime;
+
+    @Column(
+        name = "release_date"
+    )
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date releaseDate;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_category", joinColumns = @JoinColumn(name = "movie_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "category_oid", referencedColumnName = "oid"))
@@ -100,6 +110,8 @@ public class Movie implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Role> roles;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Language> languages;
 
     public Long getOid() {
         return oid;
@@ -157,6 +169,22 @@ public class Movie implements Serializable {
         this.modifiedBy = modifiedBy;
     }
 
+    public int getRunningTime() {
+        return runningTime;
+    }
+
+    public void setRunningTime(int runningTime) {
+        this.runningTime = runningTime;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public List<Category> getCategories() {
         return categories;
     }
@@ -171,5 +199,13 @@ public class Movie implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
     }
 }

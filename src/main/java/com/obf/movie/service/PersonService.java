@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class PersonService {
@@ -74,6 +75,16 @@ public class PersonService {
         per = personRepository.save(per);
 
         return per;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Person> getAllPersons() {
+
+        List<Person> people = personRepository.findAll();
+        if (people == null)
+            log.info("Could not find any people");
+
+        return people;
     }
 
     Person getPersonFromDB(Person item) {

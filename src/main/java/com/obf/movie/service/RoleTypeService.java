@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class RoleTypeService {
@@ -72,6 +73,16 @@ public class RoleTypeService {
         PartialUpdateUtil.copyNonNullProperties(transaction, rol);
         rol.setModified(Date.from(Instant.now()));
         return roleTypeRepository.save(rol);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RoleType> getAllRoleTypes() {
+
+        List<RoleType> roleTypes = roleTypeRepository.findAll();
+        if (roleTypes == null)
+            log.info("Could not find any Movies");
+
+        return roleTypes;
     }
 
     RoleType getRoleTypeFromDB(RoleType item) {

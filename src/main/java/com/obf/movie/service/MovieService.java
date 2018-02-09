@@ -19,14 +19,16 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final CategoryService categoryService;
     private final RoleService roleService;
+    private final LanguageService languageService;
 
 
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
 
-    public MovieService(MovieRepository movieRepository, CategoryService categoryService, RoleService roleService) {
+    public MovieService(MovieRepository movieRepository, CategoryService categoryService, RoleService roleService, LanguageService languageService) {
         this.movieRepository = movieRepository;
         this.categoryService = categoryService;
         this.roleService = roleService;
+        this.languageService = languageService;
     }
 
     @Transactional(readOnly = true)
@@ -77,6 +79,7 @@ public class MovieService {
 
         getCategoryFromDB(movie);
         setRoleWithDdataFromDB(movie);
+        getLanguageFromDB(movie);
         movieRepository.save(movie);
 
         return movie;
@@ -92,6 +95,12 @@ public class MovieService {
         List<Category> categories = categoryService.getCategoriesFromDB(new ArrayList<>(movie.getCategories()));
         movie.getCategories().clear();
         movie.setCategories(categories);
+    }
+
+    private void getLanguageFromDB(Movie movie) {
+        List<Language> languages = languageService.getLanguagesFromDB(new ArrayList<>(movie.getLanguages()));
+        movie.getLanguages().clear();
+        movie.setLanguages(languages);
     }
 
     @Transactional
