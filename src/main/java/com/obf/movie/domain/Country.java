@@ -7,31 +7,29 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
 
 @Entity
 @SequenceGenerator(
-    name = "personsSeq",
-    sequenceName = "persons_seq",
+    name = "countriesSeq",
+    sequenceName = "countries_seq",
     allocationSize = 1,
     schema = "MOVIEDBA"
 )
 @Table(
-    name = "persons",
-    schema = "MOVIEDBA" // kan droppes
+    name = "countries",
+    schema = "MOVIEDBA"
 )
 @Cache(
     usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE
 )
-public class Person {
-
+public class Country implements Serializable{
     @NotNull
     @Id
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "personsSeq"
+        generator = "countriesSeq"
     )
     @Column(
         name = "oid",
@@ -39,37 +37,15 @@ public class Person {
     )
     private Long oid;
 
-    @Size(
-        max = 50
-    )
-    @Column(
-        name = "first_name",
-        nullable = false
-    )
-    private String firstName;
-
     @NotNull
     @Size(
-        max = 150
+        max = 250
     )
     @Column(
-        name = "last_name",
+        name = "text",
         nullable = false
     )
-    private String lastName;
-
-
-    @Column(
-        name = "born"
-    )
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date born;
-
-    @Column(
-        name = "deceased"
-    )
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date deceased;
+    private String text;
 
     @Column(
         name = "created",
@@ -85,32 +61,21 @@ public class Person {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date modified;
 
-    @NotNull
     @Size(
         max = 40
     )
     @Column(
-        name = "created_by",
-        nullable = false
+        name = "created_by"
     )
     private String createdBy;
 
-    @NotNull
     @Size(
         max = 40
     )
     @Column(
-        name = "modified_by",
-        nullable = false
+        name = "modified_by"
     )
     private String modifiedBy;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Role role;
-
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Country bornCountry;
 
     public Long getOid() {
         return oid;
@@ -120,36 +85,12 @@ public class Person {
         this.oid = oid;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getText() {
+        return text;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getBorn() {
-        return born;
-    }
-
-    public void setBorn(Date born) {
-        this.born = born;
-    }
-
-    public Date getDeceased() {
-        return deceased;
-    }
-
-    public void setDeceased(Date deceased) {
-        this.deceased = deceased;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Date getCreated() {
@@ -183,20 +124,10 @@ public class Person {
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Country getBornCountry() {
-        return bornCountry;
-    }
-
-    public void setBornCountry(Country bornCountry) {
-        this.bornCountry = bornCountry;
-    }
 }
+
+
+
+
+
+

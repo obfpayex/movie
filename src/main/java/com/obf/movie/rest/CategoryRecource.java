@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequestMapping("/obf-movie-server/api")
 public class CategoryRecource {
 
-    private static final Logger log = LoggerFactory.getLogger(MovieResource.class);
+    private static final Logger log = LoggerFactory.getLogger(CategoryRecource.class);
 
     private final CategoryService categoryService;
 

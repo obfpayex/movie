@@ -2,8 +2,8 @@ package com.obf.movie.rest;
 
 
 import com.codahale.metrics.annotation.Timed;
-import com.obf.movie.domain.Language;
-import com.obf.movie.service.LanguageService;
+import com.obf.movie.domain.Country;
+import com.obf.movie.service.CountryService;
 import com.obf.movie.util.ResponseUtil;
 import com.payex.vas.common.vasutil.utils.Stopwatch;
 import org.slf4j.Logger;
@@ -17,25 +17,25 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/obf-movie-server/api")
-public class LanguageRecource {
+public class CountryRecource {
 
-    private static final Logger log = LoggerFactory.getLogger(LanguageRecource.class);
+    private static final Logger log = LoggerFactory.getLogger(CountryRecource.class);
 
-    private final LanguageService languageService;
+    private final CountryService countryService;
 
-    public LanguageRecource(LanguageService languageService) {
-        this.languageService = languageService;
+    public CountryRecource(CountryService countryService) {
+        this.countryService = countryService;
     }
 
 
     @Timed
-    @GetMapping(value = "/language/{oId}")
-    public ResponseEntity<Language> getOneLanguage(@PathVariable("oId") Long oId) {
+    @GetMapping(value = "/country/{oId}")
+    public ResponseEntity<Country> getOneCountry(@PathVariable("oId") Long oId) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("get invoked: {} ", oId);
 
-            Language response = languageService.getOneLanguage(oId);
+            Country response = countryService.getOneCountry(oId);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -46,13 +46,13 @@ public class LanguageRecource {
     }
 
     @Timed
-    @PostMapping(value = "/language")
-    public ResponseEntity<Language> addLanguage(@RequestBody Language request) {
+    @PostMapping(value = "/country")
+    public ResponseEntity<Country> addLanguage(@RequestBody Country request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
-            log.info("add() invoked for Language with oid: {} ", request.getOid());
+            log.info("add() invoked for Country with oid: {} ", request.getOid());
 
-            Language response = languageService.saveNewLanguage(request);
+            Country response = countryService.saveNewCountry(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -63,13 +63,13 @@ public class LanguageRecource {
     }
 
     @Timed
-    @PutMapping(value = "/language")
-    public ResponseEntity<Language> updateLanguage(@RequestBody @Valid Language request) {
+    @PutMapping(value = "/country")
+    public ResponseEntity<Country> updateCountry(@RequestBody @Valid Country request) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
-            log.info("update() invoked for Language with oid: {} ", request.getOid());
+            log.info("update() invoked for Country with oid: {} ", request.getOid());
 
-            Language response = languageService.updateLanguage(request);
+            Country response = countryService.updateCountry(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -80,13 +80,13 @@ public class LanguageRecource {
     }
 
     @Timed
-    @PatchMapping(value = "/language")
-    public ResponseEntity<Language> partialUpdate(@RequestBody Language request) throws Exception {
+    @PatchMapping(value = "/country")
+    public ResponseEntity<Country> partialUpdate(@RequestBody Country request) throws Exception {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
 
-            Language response = languageService.partialUpdate(request);
+            Country response = countryService.partialUpdate(request);
             return ResponseUtil.wrapOrNotFound(Optional.ofNullable(response));
         } catch (Exception ex) {
             log.error("Something happened {}", ex.getMessage(), ex);
@@ -96,13 +96,13 @@ public class LanguageRecource {
         }
     }
     @Timed
-    @GetMapping(value = "/language/getalllanguages")
-    public List<Language> getAllLanguages() {
+    @GetMapping(value = "/country/getalllanguages")
+    public List<Country> getAllLanguages() {
         Stopwatch stopwatch = Stopwatch.createStarted();
         try {
             //log.info("get invoked: {} ", originalTitle);
 
-            List<Language> response = languageService.getAllLanguages();
+            List<Country> response = countryService.getAllCountrys();
 
             return response;
         } catch (Exception ex) {
