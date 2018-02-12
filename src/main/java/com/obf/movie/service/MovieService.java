@@ -147,4 +147,16 @@ public class MovieService {
         return mov;
     }
 
+
+    @Transactional
+    public boolean deleteMovie(Long oid) throws Exception {
+
+        Movie mov = movieRepository.findOneByOid(oid);
+        if (mov == null) {
+            log.info("Could not find Movie by oid: {}", oid);
+            return false;
+        }
+        movieRepository.delete(mov);
+        return true;
+    }
 }

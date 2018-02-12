@@ -102,7 +102,7 @@ public class Movie implements Serializable {
     )
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date releaseDate;
-    
+
     @Size(
         max = 2000
     )
@@ -112,7 +112,7 @@ public class Movie implements Serializable {
     private String summary;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)//, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_category", joinColumns = @JoinColumn(name = "movie_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "category_oid", referencedColumnName = "oid"))
     private List<Category> categories;
 

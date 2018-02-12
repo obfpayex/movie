@@ -153,4 +153,19 @@ public class MovieResource {
             log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
         }
     }
+
+    @Timed
+    @DeleteMapping(value = "/movie/deletemovie/{oId}")
+    public boolean deleteMovie(@PathVariable("oId") Long oId) throws Exception{
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        try {
+            log.info("get invoked: {} ", oId);
+            return movieService.deleteMovie(oId);
+        } catch (Exception ex) {
+            log.error("Something happened {}", ex.getMessage(), ex);
+            throw ex;
+        } finally {
+            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+        }
+    }
 }
