@@ -9,8 +9,11 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:oracle:thin:@localhost:1521:xe
-        username: MOVIEDBA
-        password: MOVIEDBA
+# work        username: MOVIEDBA
+# work        password: MOVIEDBA
+        username: MOVIENEWDBA
+        password: MOVIENEWDBA
+
         driverClassName: oracle.jdbc.OracleDriver
         hikari:
             maximum-pool-size: 5
@@ -19,7 +22,7 @@ spring:
         show_sql: true
         hibernate:
             # none, update
-            ddl-auto: update
+            ddl-auto: none
 
 
 application:

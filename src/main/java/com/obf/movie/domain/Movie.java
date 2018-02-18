@@ -111,6 +111,18 @@ public class Movie implements Serializable {
     )
     private String summary;
 
+    @Size(
+        max = 30
+    )
+    @Column(
+        name = "age_limit"
+    )
+    private String ageLimit;
+
+    @Column(
+        name = "PRODUCTION_YEAR"
+    )
+    private int productionYear;
 
     @ManyToMany(fetch = FetchType.LAZY)//, cascade = CascadeType.ALL)
     @JoinTable(name = "movie_category", joinColumns = @JoinColumn(name = "movie_oid", referencedColumnName = "oid"), inverseJoinColumns = @JoinColumn(name = "category_oid", referencedColumnName = "oid"))
@@ -203,6 +215,22 @@ public class Movie implements Serializable {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getAgeLimit() {
+        return ageLimit;
+    }
+
+    public void setAgeLimit(String ageLimit) {
+        this.ageLimit = ageLimit;
+    }
+
+    public int getProductionYear() {
+        return productionYear;
+    }
+
+    public void setProductionYear(int productionYear) {
+        this.productionYear = productionYear;
     }
 
     public List<Category> getCategories() {

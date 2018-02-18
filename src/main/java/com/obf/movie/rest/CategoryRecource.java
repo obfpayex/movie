@@ -2,10 +2,11 @@ package com.obf.movie.rest;
 
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Stopwatch;
 import com.obf.movie.domain.Category;
 import com.obf.movie.service.CategoryService;
 import com.obf.movie.util.ResponseUtil;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
+//import com.payex.vas.common.vasutil.utils.//Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class CategoryRecource {
     @Timed
     @GetMapping(value = "/category/{oId}")
     public ResponseEntity<Category> getOneCategory(@PathVariable("oId") Long oId) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        //Stopwatch //Stopwatch = //Stopwatch.createStarted();
         try {
             log.info("get invoked: {} ", oId);
 
@@ -41,14 +42,14 @@ public class CategoryRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @PostMapping(value = "/category")
     public ResponseEntity<Category> addCategory(@RequestBody Category request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        //Stopwatch //Stopwatch = //Stopwatch.createStarted();
         try {
             log.info("add() invoked for category with oid: {} ", request.getOid());
 
@@ -58,14 +59,14 @@ public class CategoryRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "add", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "add", "");
         }
     }
 
     @Timed
     @PutMapping(value = "/category")
     public ResponseEntity<Category> updateCategory(@RequestBody @Valid Category request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        //Stopwatch //Stopwatch = //Stopwatch.createStarted();
         try {
             log.info("update() invoked for category with oid: {} ", request.getOid());
 
@@ -75,14 +76,14 @@ public class CategoryRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "update","");
         }
     }
 
     @Timed
     @PatchMapping(value = "/category")
     public ResponseEntity<Category> partialUpdate(@RequestBody Category request) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        //Stopwatch //Stopwatch = //Stopwatch.createStarted();
         try {
             log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
 
@@ -92,14 +93,14 @@ public class CategoryRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", "");
         }
     }
 
     @Timed
     @GetMapping(value = "/category/getallcategory")
     public List<Category> getAllCategories() {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        //Stopwatch //Stopwatch = //Stopwatch.createStarted();
         try {
             //log.info("get invoked: {} ", originalTitle);
 
@@ -110,7 +111,7 @@ public class CategoryRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 }

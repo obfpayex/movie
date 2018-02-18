@@ -5,7 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.obf.movie.domain.Person;
 import com.obf.movie.service.PersonService;
 import com.obf.movie.util.ResponseUtil;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class PersonResource {
     @Timed
     @GetMapping(value = "/person/{oId}")
     public ResponseEntity<Person> getOnePerson(@PathVariable("oId") Long oId) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", oId);
 
@@ -41,14 +41,14 @@ public class PersonResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @PostMapping(value = "/person")
     public ResponseEntity<Person> addPerson(@RequestBody Person request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("add() invoked for person with oid: {} ", request.getOid());
 
@@ -58,14 +58,14 @@ public class PersonResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "add", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "add", "");
         }
     }
 
     @Timed
     @PutMapping(value = "/person")
     public ResponseEntity<Person> updatePerson(@RequestBody @Valid Person request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("update() invoked for person with oid: {} ", request.getOid());
 
@@ -75,14 +75,14 @@ public class PersonResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "update", "");
         }
     }
 
     @Timed
     @PatchMapping(value = "/person")
     public ResponseEntity<Person> partialUpdatePerson(@RequestBody Person request) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("partialUpdate() invoked for Person with oid: {} ", request.getOid());
 
@@ -92,14 +92,14 @@ public class PersonResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", "");
         }
     }
 
     @Timed
     @GetMapping(value = "/person/getallpersons")
     public List<Person> getAllpersons() {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             //log.info("get invoked: {} ", originalTitle);
 
@@ -110,7 +110,7 @@ public class PersonResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 }

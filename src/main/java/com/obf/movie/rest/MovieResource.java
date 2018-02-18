@@ -5,7 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.obf.movie.domain.Movie;
 import com.obf.movie.service.MovieService;
 import com.obf.movie.util.ResponseUtil;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class MovieResource {
     @Timed
     @GetMapping(value = "/movie/getbyoid/{oId}")
     public ResponseEntity<Movie> getOneMovie(@PathVariable("oId") Long oId) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", oId);
 
@@ -42,7 +42,7 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
@@ -52,7 +52,7 @@ public class MovieResource {
     @Timed
     @GetMapping(value = "/movie/getallmovies")
     public List<Movie> getAllMovies() {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             //log.info("get invoked: {} ", originalTitle);
 
@@ -63,14 +63,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @GetMapping(value = "/movie/getbyoriginalTitle/{originalTitle}")
     public List<Movie> getMoviesByOriginalTitle(@PathVariable("originalTitle") String originalTitle) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", originalTitle);
 
@@ -81,14 +81,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @GetMapping(value = "/movie/searchbyoriginalTitle/{originalTitle}")
     public List<Movie> searchMoviesByOriginalTitle(@PathVariable("originalTitle") String originalTitle) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", originalTitle);
 
@@ -99,14 +99,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @PostMapping(value = "/movie")
     public ResponseEntity<Movie> addMovie(@RequestBody Movie request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("add() invoked for transaction with oid: {} ", request.getOid());
 
@@ -116,14 +116,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "add", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "add", "");
         }
     }
 
     @Timed
     @PutMapping(value = "/movie")
     public ResponseEntity<Movie> update(@RequestBody @Valid Movie request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("update() invoked for movie with oid: {} ", request.getOid());
 
@@ -133,14 +133,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "update", "");
         }
     }
 
     @Timed
     @PatchMapping(value = "/movie")
     public ResponseEntity<Movie> partialUpdate(@RequestBody Movie request) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
 
@@ -150,14 +150,14 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", "");
         }
     }
 
     @Timed
     @DeleteMapping(value = "/movie/deletemovie/{oId}")
     public boolean deleteMovie(@PathVariable("oId") Long oId) throws Exception{
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", oId);
             return movieService.deleteMovie(oId);
@@ -165,7 +165,7 @@ public class MovieResource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 }

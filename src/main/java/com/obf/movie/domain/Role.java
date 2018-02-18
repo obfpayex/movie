@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -37,6 +38,13 @@ public class Role implements Serializable {
     )
     private Long oid;
 
+    @Size(
+        max = 100
+    )
+    @Column(
+        name = "caracter_name"
+    )
+    private String caracterName;
 
 
     @OneToOne
@@ -52,6 +60,14 @@ public class Role implements Serializable {
 
     public void setOid(Long oid) {
         this.oid = oid;
+    }
+
+    public String getCaracterName() {
+        return caracterName;
+    }
+
+    public void setCaracterName(String caracterName) {
+        this.caracterName = caracterName;
     }
 
     public Person getPerson() {

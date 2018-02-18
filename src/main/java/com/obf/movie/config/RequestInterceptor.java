@@ -1,6 +1,5 @@
 package com.obf.movie.config;
 
-import com.payex.vas.common.vasutil.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
@@ -28,10 +27,10 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
 //        }
         ClientHttpResponse response;
         if (applicationProperties.getApiRequestLog()) {
-            Stopwatch stopwatch = Stopwatch.createStarted();
+
             String req = traceRequest(request, body);
             response = execution.execute(request, body);
-            String resp = traceResponse(response, stopwatch);
+            String resp = traceResponse(response);
             log.debug(req + resp + System.lineSeparator());
         } else {
             response = execution.execute(request, body);
@@ -45,7 +44,7 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
             return; //This is an expected error..
 
         String req = traceRequest(request, body);
-        String resp = traceResponse(response, null);
+        String resp = traceResponse(response);
         log.error(req + resp + System.lineSeparator());
     }
 
@@ -59,12 +58,12 @@ public class RequestInterceptor implements ClientHttpRequestInterceptor {
             "============================ Request end ============================";
     }
 
-    private String traceResponse(ClientHttpResponse response, Stopwatch stopwatch) throws IOException {
-        String postFix = stopwatch == null ? "end" : "finished in " + stopwatch.stop();
+    private String traceResponse(ClientHttpResponse response) throws IOException {
+
         return System.lineSeparator() +
             "============================ Response begin ============================" + System.lineSeparator() +
             "Status code  : " + response.getStatusCode() + System.lineSeparator() +
             "Status text  : " + response.getStatusCode().getReasonPhrase() + System.lineSeparator() +
-            "============================ Response " + postFix + " ============================";
+            "============================ Response " + "" + " ============================";
     }
 }

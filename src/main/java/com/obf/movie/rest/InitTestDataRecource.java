@@ -3,7 +3,7 @@ package com.obf.movie.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.obf.movie.service.InitTestDataService;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class InitTestDataRecource {
     @Timed
     @PutMapping(value = "/InitTestData/{oId}")
     public void initData(@PathVariable("oId") Long oId) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("update() invoked for movie with oid: {} ", + oId);
 
@@ -35,7 +35,7 @@ public class InitTestDataRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "update", "");
         }
     }
 }

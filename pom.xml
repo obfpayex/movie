@@ -244,7 +244,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <inherited>true</inherited>
@@ -261,12 +261,12 @@
                     <append>true</append>
                     <propertyName>argLine</propertyName>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
 
     <distributionManagement>
-        <repository>
+        <!--repository>
             <id>seutv923as.utvnet.net</id>
             <name>http://seutv923as.utvnet.net/-releases</name>
             <url>http://seutv923as.utvnet.net:8082/artifactory/libs-release-local</url>
@@ -275,16 +275,16 @@
             <id>seutv923as.utvnet.net-snapshot</id>
             <name>http://seutv923as.utvnet.net/-snapshots</name>
             <url>http://seutv923as.utvnet.net:8082/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
+        </snapshotRepository-->
     </distributionManagement>
 
     <repositories>
-        <repository>
+        <!--repository>
             <id>central-vas</id>
             <url>http://seutv923as.utvnet.net:8082/artifactory/libs-release</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
+        </repository-->
     </repositories>
 </project>

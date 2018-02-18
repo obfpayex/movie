@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.payex.vas.common.vasutil.utils.StringUtil;
+import org.h2.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class JsonUtil {
 
     public static String appendToJson(String jsonString, String key, String value) {
         try {
-            if (StringUtil.isNullOrEmpty(jsonString))
+            if (StringUtils.isNullOrEmpty(jsonString))
                 return createJsonObject(key, value);
 
             ObjectNode obj = (ObjectNode) mapper.readTree(jsonString);

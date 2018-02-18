@@ -5,7 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.obf.movie.domain.RoleType;
 import com.obf.movie.service.RoleTypeService;
 import com.obf.movie.util.ResponseUtil;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class RoleTypeRecource {
     @Timed
     @GetMapping(value = "/roletype/{oId}")
     public ResponseEntity<RoleType> getOneRoleType(@PathVariable("oId") Long oId) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("get invoked: {} ", oId);
 
@@ -41,14 +41,14 @@ public class RoleTypeRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 
     @Timed
     @PostMapping(value = "/roletype")
     public ResponseEntity<RoleType> addRoleType(@RequestBody RoleType request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("add() invoked for category with oid: {} ", request.getOid());
 
@@ -58,14 +58,14 @@ public class RoleTypeRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "add", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "add", "");
         }
     }
 
     @Timed
     @PutMapping(value = "/roletype")
     public ResponseEntity<RoleType> updateRoleType(@RequestBody @Valid RoleType request) {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("update() invoked for category with oid: {} ", request.getOid());
 
@@ -75,14 +75,14 @@ public class RoleTypeRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "update", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "update", "");
         }
     }
 
     @Timed
     @PatchMapping(value = "/roletype")
     public ResponseEntity<RoleType> partialUpdate(@RequestBody RoleType request) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             log.info("partialUpdate() invoked for transaction with oid: {} ", request.getOid());
 
@@ -92,14 +92,14 @@ public class RoleTypeRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "partialUpdate", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "partialUpdate", "");
         }
     }
 
     @Timed
     @GetMapping(value = "/roletype/getallroletypes")
     public List<RoleType> getAllpersons() {
-        Stopwatch stopwatch = Stopwatch.createStarted();
+
         try {
             //log.info("get invoked: {} ", originalTitle);
 
@@ -110,7 +110,7 @@ public class RoleTypeRecource {
             log.error("Something happened {}", ex.getMessage(), ex);
             throw ex;
         } finally {
-            log.info("# finished [{}] executeTime : {}", "get", stopwatch.stop().toString());
+            log.info("# finished [{}] executeTime : {}", "get", "");
         }
     }
 }

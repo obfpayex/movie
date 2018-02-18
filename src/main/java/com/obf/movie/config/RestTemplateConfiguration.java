@@ -1,7 +1,6 @@
 package com.obf.movie.config;
 
 import com.google.common.collect.ImmutableList;
-import com.payex.vas.common.vasutil.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -35,11 +34,10 @@ public class RestTemplateConfiguration {
 
     @Bean
     public RestTemplate restTemplate() {
-        Stopwatch stopwatch = Stopwatch.createStarted();
         RestTemplate restTemplate = new RestTemplate(httpRequestFactory());
         restTemplate.setInterceptors(ImmutableList.of(authInterceptor()));
         restTemplate.getMessageConverters().add(messageConverter());
-        log.info("Initiated RestTemplate in {}", stopwatch.stop());
+        log.info("Initiated RestTemplate in {}", "");
         return restTemplate;
     }
 
