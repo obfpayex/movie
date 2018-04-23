@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -16,11 +17,11 @@ import java.util.Set;
     name = "personsSeq",
     sequenceName = "persons_seq",
     allocationSize = 1,
-    schema = "MOVIEDBA"
+    schema = "MOVIENEWDBA"
 )
 @Table(
     name = "persons",
-    schema = "MOVIEDBA" // kan droppes
+    schema = "MOVIENEWDBA" // kan droppes
 )
 @Cache(
     usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE
@@ -105,8 +106,8 @@ public class Person {
     )
     private String modifiedBy;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Role role;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Role> roles;
 
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -184,19 +185,19 @@ public class Person {
         this.modifiedBy = modifiedBy;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Country getBornCountry() {
         return bornCountry;
     }
 
     public void setBornCountry(Country bornCountry) {
         this.bornCountry = bornCountry;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

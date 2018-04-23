@@ -15,11 +15,11 @@ import java.util.Date;
     name = "roletypesSeq",
     sequenceName = "roletypes_seq",
     allocationSize = 1,
-    schema = "MOVIEDBA"
+    schema = "MOVIENEWDBA"
 )
 @Table(
     name = "roletypes",
-    schema = "MOVIEDBA" // kan droppes
+    schema = "MOVIENEWDBA" // kan droppes
 )
 @Cache(
     usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE

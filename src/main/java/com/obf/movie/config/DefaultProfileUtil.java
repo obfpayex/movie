@@ -29,6 +29,7 @@ public final class DefaultProfileUtil {
          * See https://github.com/spring-projects/spring-boot/issues/1219
          */
         defProperties.put(SPRING_PROFILE_DEFAULT, Constants.SPRING_PROFILE_DEVELOPMENT);
+        //defProperties.put(SPRING_PROFILE_DEFAULT, Constants.SPRING_PROFILE_STAGING);
         app.setDefaultProperties(defProperties);
     }
 
