@@ -54,7 +54,7 @@ public class MovieService {
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Movie> getMoviesByOriginalTitle(String orgTitle) {
 
         List<Movie> movies = movieRepository.findByOriginalTitle(orgTitle);

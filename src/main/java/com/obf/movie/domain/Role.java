@@ -50,7 +50,7 @@ public class Role implements Serializable {
     @OneToOne
     private Person person;
 
-    @ManyToOne
+    @OneToOne
     private RoleType roleType;
 
 
